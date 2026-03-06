@@ -17,7 +17,7 @@ function App() {
     getMessage().then((res) => setMessage(res.message))
     getServerTime().then((res) => setTime(res.time))
     getProjects().then((res) => {
-      console.log(res)
+      setProjects(res)
     })
   }, [])
 
@@ -33,6 +33,21 @@ function App() {
           {message ? null : <Spinner />}
         </div>
         <div className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center"></div>
+        {projects.map((project) => {
+          return (
+            <div
+              key={project.id}
+              className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center border-2"
+              style={{
+                background: project.color + '33',
+                borderColor: project.color,
+                color: project.color,
+              }}
+            >
+              {project.name}
+            </div>
+          )
+        })}
       </div>
     </AppLayout>
   )
