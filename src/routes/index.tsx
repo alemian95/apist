@@ -1,6 +1,6 @@
 import AppLayout from '@/components/layouts/app'
 import { Spinner } from '@/components/ui/spinner'
-import { getMessage, getServerTime } from '@/server/functions/test'
+import { getMessage, getServerTime } from '@/server/functions/default'
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 
