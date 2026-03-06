@@ -7,7 +7,7 @@ export const getProjects = createServerFn().handler(async () => {
 })
 
 export const createProject = createServerFn()
-  .validator((data: { name: string; color: string }) => data)
+  .inputValidator((data: { name: string; color: string }) => data)
   .handler(async ({ data }) => {
     return db.insert(projects).values(data).returning().get()
   })

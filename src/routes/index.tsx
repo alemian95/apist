@@ -1,6 +1,7 @@
 import AppLayout from '@/components/layouts/app'
 import { Spinner } from '@/components/ui/spinner'
 import { getMessage, getServerTime } from '@/server/functions/default'
+import { getProjects } from '@/server/functions/projects'
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 
@@ -10,9 +11,14 @@ function App() {
   const [message, setMessage] = useState<string | null>(null)
   const [time, setTime] = useState<string | null>(null)
 
+  const [projects, setProjects] = useState<unknown[]>([])
+
   useEffect(() => {
     getMessage().then((res) => setMessage(res.message))
     getServerTime().then((res) => setTime(res.time))
+    getProjects().then((res) => {
+      console.log(res)
+    })
   }, [])
 
   return (
@@ -26,25 +32,6 @@ function App() {
           <p className="text-sm">{message}</p>
           {message ? null : <Spinner />}
         </div>
-        <div className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center"></div>
-        <div className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center"></div>
-        <div className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center"></div>
-        <div className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center"></div>
-        <div className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center"></div>
-        <div className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center"></div>
-        <div className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center"></div>
-        <div className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center"></div>
-        <div className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center"></div>
-        <div className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center"></div>
-        <div className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center"></div>
-        <div className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center"></div>
-        <div className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center"></div>
-        <div className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center"></div>
-        <div className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center"></div>
-        <div className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center"></div>
-        <div className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center"></div>
-        <div className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center"></div>
-        <div className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center"></div>
         <div className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center"></div>
       </div>
     </AppLayout>
