@@ -8,6 +8,13 @@
       "when": 1772819571539,
       "tag": "0000_panoramic_reavers",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1772896905730,
+      "tag": "0001_quick_baron_zemo",
+      "breakpoints": true
     }
   ]
 }
