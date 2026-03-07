@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import {
   DropdownMenu,
@@ -6,7 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from '@/components/ui/dropdown-menu'
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -15,11 +15,18 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/components/ui/sidebar"
-import { IconDots, IconFolder, IconArrowForward, IconTrash } from "@tabler/icons-react"
+} from '@/components/ui/sidebar'
+import { getProjects } from '@/server/functions/projects'
+import {
+  IconDots,
+  IconFolder,
+  IconArrowForward,
+  IconTrash,
+} from '@tabler/icons-react'
+import { useEffect, useState } from 'react'
 
 export function NavProjects({
-  projects,
+  projects: projectsData,
 }: {
   projects: {
     name: string
@@ -29,6 +36,16 @@ export function NavProjects({
 }) {
   const { isMobile } = useSidebar()
 
+  const [projects, setProjects] = useState<unknown[]>([])
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const projects = await getProjects()
+      setProjects(projects)
+    }
+    fetchProjects()
+  }, [])
+
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>Projects</SidebarGroupLabel>
@@ -36,8 +53,13 @@ export function NavProjects({
         {projects.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton asChild>
-              <a href={item.url}>
-                {item.icon}
+              <a href="#">
+                <IconFolder
+                  className="inline"
+                  style={{
+                    color: item.color,
+                  }}
+                />
                 <span>{item.name}</span>
               </a>
             </SidebarMenuButton>
@@ -47,15 +69,14 @@ export function NavProjects({
                   showOnHover
                   className="aria-expanded:bg-muted"
                 >
-                  <IconDots
-                  />
+                  <IconDots />
                   <span className="sr-only">More</span>
                 </SidebarMenuAction>
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 className="w-48 rounded-lg"
-                side={isMobile ? "bottom" : "right"}
-                align={isMobile ? "end" : "start"}
+                side={isMobile ? 'bottom' : 'right'}
+                align={isMobile ? 'end' : 'start'}
               >
                 <DropdownMenuItem>
                   <IconFolder className="text-muted-foreground" />
