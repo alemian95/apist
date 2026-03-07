@@ -17,6 +17,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar'
 import { getProjects } from '@/server/functions/projects'
+import { useProjectsStore } from '@/stores/projects'
 import {
   IconDots,
   IconFolder,
@@ -36,12 +37,12 @@ export function NavProjects({
 }) {
   const { isMobile } = useSidebar()
 
-  const [projects, setProjects] = useState<unknown[]>([])
+  const projectsStore = useProjectsStore()
 
   useEffect(() => {
     const fetchProjects = async () => {
       const projects = await getProjects()
-      setProjects(projects)
+      projectsStore.setProjects(projects)
     }
     fetchProjects()
   }, [])
@@ -50,7 +51,7 @@ export function NavProjects({
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>Projects</SidebarGroupLabel>
       <SidebarMenu>
-        {projects.map((item) => (
+        {projectsStore.projects.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton asChild>
               <a href="#">
