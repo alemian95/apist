@@ -4,6 +4,7 @@ import { Field, FieldError, FieldLabel } from '../ui/field'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { createProject } from '@/server/functions/projects'
+import { useProjectsStore } from '@/stores/projects'
 
 const formSchema = z.object({
   name: z.string().min(4).max(64),
@@ -11,6 +12,8 @@ const formSchema = z.object({
 })
 
 export function CreateProjectForm({ onSuccess }: { onSuccess: () => void }) {
+  const projectsStore = useProjectsStore()
+
   const form = useForm({
     defaultValues: {
       name: '',
@@ -21,13 +24,14 @@ export function CreateProjectForm({ onSuccess }: { onSuccess: () => void }) {
     },
     onSubmit: async ({ value }) => {
       console.log(value)
-      createProject({
+      await createProject({
         data: {
           name: value.name,
           color: value.color,
         },
       })
       onSuccess()
+      projectsStore.fetchProjects()
     },
   })
 

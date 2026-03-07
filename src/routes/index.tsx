@@ -20,7 +20,7 @@ function App() {
 
   return (
     <AppLayout>
-      <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+      <div className="grid auto-rows-min gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <div className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center">
           <p className="text-sm">{time}</p>
           {time ? null : <Spinner />}

@@ -16,7 +16,6 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar'
-import { getProjects } from '@/server/functions/projects'
 import { useProjectsStore } from '@/stores/projects'
 import {
   IconDots,
@@ -24,25 +23,16 @@ import {
   IconArrowForward,
   IconTrash,
 } from '@tabler/icons-react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
-export function NavProjects({
-  projects: projectsData,
-}: {
-  projects: {
-    name: string
-    url: string
-    icon: React.ReactNode
-  }[]
-}) {
+export function NavProjects() {
   const { isMobile } = useSidebar()
 
   const projectsStore = useProjectsStore()
 
   useEffect(() => {
     const fetchProjects = async () => {
-      const projects = await getProjects()
-      projectsStore.setProjects(projects)
+      projectsStore.fetchProjects()
     }
     fetchProjects()
   }, [])
