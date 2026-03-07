@@ -24,6 +24,7 @@ import {
   IconTrash,
 } from '@tabler/icons-react'
 import { useEffect } from 'react'
+import {deleteProject} from "@/server/functions/projects.ts";
 
 export function NavProjects() {
   const { isMobile } = useSidebar()
@@ -31,11 +32,19 @@ export function NavProjects() {
   const projectsStore = useProjectsStore()
 
   useEffect(() => {
-    const fetchProjects = async () => {
       projectsStore.fetchProjects()
-    }
-    fetchProjects()
   }, [])
+
+  const delProject = async (id: number) => {
+      if (confirm("Are you sure you want to delete this project?")) {
+          await deleteProject({
+              data: {
+                  projectId: id
+              }
+          })
+          await projectsStore.fetchProjects()
+      }
+  }
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
@@ -78,7 +87,7 @@ export function NavProjects() {
                   <span>Share Project</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => delProject(item.id)}>
                   <IconTrash className="text-muted-foreground" />
                   <span>Delete Project</span>
                 </DropdownMenuItem>
